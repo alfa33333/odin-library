@@ -40,12 +40,14 @@ function displayLibrary() {
         const bodyRowContent = document.createElement("tr");
         for(let key in book){
             if(key === "id"){
-                continue
+                bodyRowContent.id = book[key];
+                continue;
             } 
             const tdata = document.createElement("td");
             tdata.textContent = book[key];
             bodyRowContent.appendChild(tdata)
         }
+        addButton(bodyRowContent);
         bodyContent.appendChild(bodyRowContent);
     }
     
@@ -59,12 +61,14 @@ function appendBookRow(book){
     const bodyRowContent = document.createElement("tr");
     for(let key in book){
         if(key === "id"){
+                bodyRowContent.id = book[key];
                 continue
             } 
             const tdata = document.createElement("td");
             tdata.textContent = book[key];
             bodyRowContent.appendChild(tdata)
     }
+    addButton(bodyRowContent);
     body.appendChild(bodyRowContent);
 }
 
@@ -90,6 +94,23 @@ myForm.addEventListener('submit', (e) => {
     closeModal();
     myForm.reset();
 }); 
+
+function addButton(rowParent){
+    const button = document.createElement("button");
+    button.textContent = "Remove Book";
+    button.addEventListener('click', function() {
+           deleteBook(rowParent.id);
+        });
+    rowParent.appendChild(button);
+}
+
+function deleteBook(id) {
+    const bookIndex = myLibrary.findIndex(book => book.id === id); 
+    myLibrary.splice(bookIndex, 1);
+    const tableRow = document.getElementById(id)
+    tableRow.remove();
+}
+
 
 
 
