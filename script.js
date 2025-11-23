@@ -20,12 +20,35 @@ function addBookToLibrary(author, title, pages, read) {
 }
 
 function displayLibrary() {
-    for (let book of myLibrary) {
-    const newElement = document.createElement('p');
     const container = document.getElementById('container');
-    newElement.textContent = `${book.title} by ${book.author}, ${book.pages} pages, Read: ${book.read}`;
-    container.appendChild(newElement);
+    const table = document.createElement("table");  
+    const headers = ["Title", "Author", "Pages", "Read"];
+    const headerRow = document.createElement("thead");
+    const headerRowContent = document.createElement("tr");
+    headerRow.appendChild(headerRowContent);
+    for (let headerText of headers) {
+        const header = document.createElement("th");
+        header.textContent = headerText;
+        headerRowContent.appendChild(header);
     }
+    table.appendChild(headerRow);
+
+    const bodyContent = document.createElement("tbody");
+    for (let book of myLibrary) {
+        const bodyRowContent = document.createElement("tr");
+        for(let key in book){
+            if(key === "id"){
+                continue
+            } 
+            const tdata = document.createElement("td");
+            tdata.textContent = book[key];
+            bodyRowContent.appendChild(tdata)
+        }
+        bodyContent.appendChild(bodyRowContent);
+    }
+    
+    table.appendChild(bodyContent);
+    container.appendChild(table);
 }
 
 displayLibrary();
