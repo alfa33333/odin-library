@@ -78,6 +78,19 @@ const closeModal = () => {
     modal.close();
 };
 
+myForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(myForm);
+    const title = formData.get('title');
+    const author = formData.get('author');
+    const pages = formData.get('pages');
+    const read = formData.get('read');
+    addBookToLibrary(title, author, pages, read=='on')
+    appendBookRow(myLibrary[myLibrary.length - 1]);
+    closeModal();
+    myForm.reset();
+}); 
+
 
 
 
