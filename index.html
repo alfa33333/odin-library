@@ -9,7 +9,17 @@
 <body>
     <button onclick="openModal()">Add Book</button>
     <dialog id="modal">
-        I am a dialog
+        <form id="book-form">
+            <label for="title">title</label>
+            <input type="text" id="title" name="title"><br>
+            <label for="title">author</label>
+            <input type="text" id="author" name="author"><br>
+            <label for="title">pages</label>
+            <input type="number" id="pages" name="pages"><br>
+            <label for="title">read</label>
+            <input type="checkbox" id="read" name="read"><br>
+            <button type="submit">Submit</button>
+        </form>
         <button onclick="closeModal()">Close</button>
     </dialog>
     <div id="container">

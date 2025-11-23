@@ -1,5 +1,7 @@
 console.log("Library script loaded");
 
+const myForm = document.getElementById('book-form');
+
 const myLibrary = [
     new Book("J.K. Rowling", "Harry Potter and the Sorcerer's Stone", 309, true),
     new Book("J.R.R. Tolkien", "The Hobbit", 310, false),
