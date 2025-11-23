@@ -51,4 +51,22 @@ function displayLibrary() {
     container.appendChild(table);
 }
 
+function appendBookRow(book){
+    const table = document.querySelector("#container table");
+    const body = table.querySelector("tbody");
+    const bodyRowContent = document.createElement("tr");
+    for(let key in book){
+        if(key === "id"){
+                continue
+            } 
+            const tdata = document.createElement("td");
+            tdata.textContent = book[key];
+            bodyRowContent.appendChild(tdata)
+    }
+    body.appendChild(bodyRowContent);
+}
+
+
+
+
 displayLibrary();
