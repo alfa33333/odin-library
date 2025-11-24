@@ -7,22 +7,23 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <button onclick="openModal()">Add Book</button>
+    
     <dialog id="modal">
         <form id="book-form">
-            <label for="title">title</label>
+            <label for="title">Title</label><br>
             <input type="text" id="title" name="title"><br>
-            <label for="title">author</label>
+            <label for="author">Author</label><br>
             <input type="text" id="author" name="author"><br>
-            <label for="title">pages</label>
+            <label for="pages">Pages</label><br>
             <input type="number" id="pages" name="pages"><br>
-            <label for="title">read</label>
+            <label for="read">Read</label><br>
             <input type="checkbox" id="read" name="read"><br>
             <button type="submit">Submit</button>
         </form>
         <button onclick="closeModal()">Close</button>
     </dialog>
-    <div id="container">
+    <div id="container" class="main-table">
+        <button  type="button" onclick="openModal()">Add Book</button>
     </div>
     <script src="script.js"></script>
 </body>

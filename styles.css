@@ -1,0 +1,47 @@
+.main-table {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+table {
+  border-spacing: 0;
+  border-collapse: separate;
+  border-radius: 10px;
+  border: 3px solid black;
+  text-align: left;
+  background-color: aqua;
+  box-shadow: 0px 2px 0px black;
+}
+
+
+.main-table th {
+  border-bottom: 3px solid black;
+}
+
+.main-table th,
+.main-table td {
+  padding: 10px;
+    border-right: 3px solid black;
+}
+
+button {
+  margin: 5px;
+  padding: 5px 10px;
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: #fff5c3;
+  box-shadow: 2px 2px 0px black;
+  cursor: pointer;
+}
+
+dialog {
+  border: 3px solid black;
+  border-radius: 10px;
+  box-shadow: 2px 2px 0px black;
+  padding: 20px;
+  background-color: aliceblue;
+}
+
+input {
+    margin: 5px;
+}

@@ -28,7 +28,7 @@ function addBookToLibrary(author, title, pages, read) {
 function displayLibrary() {
   const container = document.getElementById("container");
   const table = document.createElement("table");
-  const headers = ["Title", "Author", "Pages", "Read"];
+  const headers = ["Title", "Author", "Pages", "Read", ""];
   const headerRow = document.createElement("thead");
   const headerRowContent = document.createElement("tr");
   headerRow.appendChild(headerRowContent);
@@ -54,8 +54,10 @@ function displayLibrary() {
         bodyRowContent.appendChild(tdata);
       }
     }
-    addRemove(bodyRowContent);
-    toggleButton(book, bodyRowContent)
+    const tdbuddons = document.createElement("td");
+    bodyRowContent.appendChild(tdbuddons);
+    addRemove(tdbuddons);
+    toggleButton(book, tdbuddons);
     bodyContent.appendChild(bodyRowContent);
   }
 
@@ -79,8 +81,10 @@ function appendBookRow(book) {
       bodyRowContent.appendChild(tdata);
     }
   }
-  addRemove(bodyRowContent);
-  toggleButton(book)
+  const tdbuddons = document.createElement("td");
+  bodyRowContent.appendChild(tdbuddons);
+  addRemove(tdbuddons);
+  toggleButton(book, tdbuddons);
   body.appendChild(bodyRowContent);
 }
 
@@ -107,21 +111,23 @@ myForm.addEventListener("submit", (e) => {
   myForm.reset();
 });
 
-function addRemove(rowParent) {
+function addRemove(rowCell) {
   const button = document.createElement("button");
+  const rowParent = rowCell.parentElement;
   button.textContent = "Remove Book";
   button.addEventListener("click", function () {
     deleteBook(rowParent.id);
   });
-  rowParent.appendChild(button);
+  rowCell.appendChild(button);
 }
 
 function toggleButton(book, bodyRowContent) {
   const button = document.createElement("button");
   button.textContent = "Toggle Read";
+  const rowParent = bodyRowContent.parentElement;
   button.addEventListener("click", function () {
     book.toggleRead();
-    bodyRowContent.cells[3].textContent = book.read;
+    rowParent.cells[3].textContent = book.read;
   });
   bodyRowContent.appendChild(button);
 }
