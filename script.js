@@ -51,11 +51,10 @@ class Library {
 
 const myLibrary = new Library();
 
-
-
-function displayLibrary() {
+class displayTable {
+  constructor(library) {
   const container = document.getElementById("container");
-  const table = document.createElement("table");
+  this.table = document.createElement("table");
   const headers = ["Title", "Author", "Pages", "Read", ""];
   const headerRow = document.createElement("thead");
   const headerRowContent = document.createElement("tr");
@@ -65,10 +64,10 @@ function displayLibrary() {
     header.textContent = headerText;
     headerRowContent.appendChild(header);
   }
-  table.appendChild(headerRow);
+  this.table.appendChild(headerRow);
 
   const bodyContent = document.createElement("tbody"); 
-  for (let book of myLibrary.getBooks()) {
+  for (let book of library.getBooks()) {
     const bodyRowContent = document.createElement("tr");
     for (let key in book) {
       if (typeof book[key] === "function") {
@@ -89,32 +88,36 @@ function displayLibrary() {
     bodyContent.appendChild(bodyRowContent);
   }
 
-  table.appendChild(bodyContent);
-  container.appendChild(table);
+  this.table.appendChild(bodyContent);
+  container.appendChild(this.table);
+  }
+
+  appendBookRow(book) {
+    // const table = document.querySelector("#container table");
+    const body = this.table.querySelector("tbody");
+    const bodyRowContent = document.createElement("tr");
+    for (let key in book) {
+      if (typeof book[key] === "function") {
+        continue;
+      } else if (key === "id") {
+        bodyRowContent.id = book[key];
+        continue;
+      } else {
+        const tdata = document.createElement("td");
+        tdata.textContent = book[key];
+        bodyRowContent.appendChild(tdata);
+      }
+    }
+    const tdbuddons = document.createElement("td");
+    bodyRowContent.appendChild(tdbuddons);
+    addRemove(tdbuddons);
+    toggleButton(book, tdbuddons);
+    body.appendChild(bodyRowContent);
+  }
+
+
 }
 
-function appendBookRow(book) {
-  const table = document.querySelector("#container table");
-  const body = table.querySelector("tbody");
-  const bodyRowContent = document.createElement("tr");
-  for (let key in book) {
-    if (typeof book[key] === "function") {
-      continue;
-    } else if (key === "id") {
-      bodyRowContent.id = book[key];
-      continue;
-    } else {
-      const tdata = document.createElement("td");
-      tdata.textContent = book[key];
-      bodyRowContent.appendChild(tdata);
-    }
-  }
-  const tdbuddons = document.createElement("td");
-  bodyRowContent.appendChild(tdbuddons);
-  addRemove(tdbuddons);
-  toggleButton(book, tdbuddons);
-  body.appendChild(bodyRowContent);
-}
 
 const openModal = () => {
   const modal = document.getElementById("modal");
@@ -126,18 +129,6 @@ const closeModal = () => {
   modal.close();
 };
 
-myForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const formData = new FormData(myForm);
-  const title = formData.get("title");
-  const author = formData.get("author");
-  const pages = formData.get("pages");
-  const read = formData.get("read");
-  myLibrary.addBookToLibrary(title, author, pages, read == "on");
-  appendBookRow(myLibrary.getLastBook());
-  closeModal();
-  myForm.reset();
-});
 
 function addRemove(rowCell) {
   const button = document.createElement("button");
@@ -163,4 +154,17 @@ function toggleButton(book, bodyRowContent) {
 }
 
 
-displayLibrary();
+displayLibrary = new displayTable(myLibrary);
+
+myForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const formData = new FormData(myForm);
+  const title = formData.get("title");
+  const author = formData.get("author");
+  const pages = formData.get("pages");
+  const read = formData.get("read");
+  myLibrary.addBookToLibrary(title, author, pages, read == "on");
+  displayLibrary.appendBookRow(myLibrary.getLastBook());
+  closeModal();
+  myForm.reset();
+});
