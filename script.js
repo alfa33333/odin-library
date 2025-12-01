@@ -29,6 +29,14 @@ class Library {
     ];
   }
 
+  getBooks() {
+    return this.books;
+  }
+
+  getLastBook(){
+    return this.books[this.books.length - 1];
+  }
+
   addBookToLibrary(author, title, pages, read) {
     const newBook = new Book(author, title, pages, read);
     this.books.push(newBook);
@@ -59,8 +67,8 @@ function displayLibrary() {
   }
   table.appendChild(headerRow);
 
-  const bodyContent = document.createElement("tbody");
-  for (let book of myLibrary) {
+  const bodyContent = document.createElement("tbody"); 
+  for (let book of myLibrary.getBooks()) {
     const bodyRowContent = document.createElement("tr");
     for (let key in book) {
       if (typeof book[key] === "function") {
@@ -125,8 +133,8 @@ myForm.addEventListener("submit", (e) => {
   const author = formData.get("author");
   const pages = formData.get("pages");
   const read = formData.get("read");
-  addBookToLibrary(title, author, pages, read == "on");
-  appendBookRow(myLibrary[myLibrary.length - 1]);
+  myLibrary.addBookToLibrary(title, author, pages, read == "on");
+  appendBookRow(myLibrary.getLastBook());
   closeModal();
   myForm.reset();
 });
