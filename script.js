@@ -3,30 +3,47 @@ console.log("Library script loaded");
 const myForm = document.getElementById("book-form");
 
 class Book {
-  constructor(author, title, pages, read){
-      this.id = crypto.randomUUID();
-      this.author = author;
-      this.title = title;
-      this.pages = pages;
-      this.read = read;
+  constructor(author, title, pages, read) {
+    this.id = crypto.randomUUID();
+    this.author = author;
+    this.title = title;
+    this.pages = pages;
+    this.read = read;
   }
   toggleRead() {
     this.read = !this.read;
   }
 }
 
-const myLibrary = [
-  new Book("J.K. Rowling", "Harry Potter and the Sorcerer's Stone", 309, true),
-  new Book("J.R.R. Tolkien", "The Hobbit", 310, false),
-  new Book("George Orwell", "1984", 328, true),
-];
+class Library {
+  constructor() {
+    this.books = [
+      new Book(
+        "J.K. Rowling",
+        "Harry Potter and the Sorcerer's Stone",
+        309,
+        true
+      ),
+      new Book("J.R.R. Tolkien", "The Hobbit", 310, false),
+      new Book("George Orwell", "1984", 328, true),
+    ];
+  }
 
+  addBookToLibrary(author, title, pages, read) {
+    const newBook = new Book(author, title, pages, read);
+    this.books.push(newBook);
+  }
 
+  deleteBookFromLibrary(id) {
+    const bookIndex = this.books.findIndex((book) => book.id === id);
+    this.books.splice(bookIndex, 1);
+  }
 
-function addBookToLibrary(author, title, pages, read) {
-  const newBook = new Book(author, title, pages, read);
-  myLibrary.push(newBook);
 }
+
+const myLibrary = new Library();
+
+
 
 function displayLibrary() {
   const container = document.getElementById("container");
@@ -119,7 +136,9 @@ function addRemove(rowCell) {
   const rowParent = rowCell.parentElement;
   button.textContent = "Remove Book";
   button.addEventListener("click", function () {
-    deleteBook(rowParent.id);
+    myLibrary.deleteBookFromLibrary(rowParent.id);
+    const tableRow = document.getElementById(rowParent.id);
+    tableRow.remove();
   });
   rowCell.appendChild(button);
 }
@@ -135,11 +154,5 @@ function toggleButton(book, bodyRowContent) {
   bodyRowContent.appendChild(button);
 }
 
-function deleteBook(id) {
-  const bookIndex = myLibrary.findIndex((book) => book.id === id);
-  myLibrary.splice(bookIndex, 1);
-  const tableRow = document.getElementById(id);
-  tableRow.remove();
-}
 
 displayLibrary();
