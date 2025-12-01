@@ -2,23 +2,26 @@ console.log("Library script loaded");
 
 const myForm = document.getElementById("book-form");
 
+class Book {
+  constructor(author, title, pages, read){
+      this.id = crypto.randomUUID();
+      this.author = author;
+      this.title = title;
+      this.pages = pages;
+      this.read = read;
+  }
+  toggleRead() {
+    this.read = !this.read;
+  }
+}
+
 const myLibrary = [
   new Book("J.K. Rowling", "Harry Potter and the Sorcerer's Stone", 309, true),
   new Book("J.R.R. Tolkien", "The Hobbit", 310, false),
   new Book("George Orwell", "1984", 328, true),
 ];
 
-function Book(author, title, pages, read) {
-  this.id = crypto.randomUUID();
-  this.author = author;
-  this.title = title;
-  this.pages = pages;
-  this.read = read;
-}
 
-Book.prototype.toggleRead = function () {
-  this.read = !this.read;
-};
 
 function addBookToLibrary(author, title, pages, read) {
   const newBook = new Book(author, title, pages, read);
